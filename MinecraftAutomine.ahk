@@ -8,11 +8,11 @@ windowTitle := "Minecraft" ; Define the title of the window to monitor (this is 
     Loop {
         ; Check the flag inside the loop
         if (autoMine) {
-            Send "click down"         ; Hold down left mouse button
-            Send {w down}"        ; Hold 'W' to move forward
+            Click, Down
+            Send {w down}        ; Hold 'W' to move forward
             
         } else {
-            Send {Click up}
+            Click, Up
             Send {w up}
             break
         }
@@ -22,7 +22,7 @@ return
 
 ; When Alt + X is pressed, start automining 
 !x::
-    Send {Click up}
+    Click, Up
     Send {w up}
     autoMine := false
 return
