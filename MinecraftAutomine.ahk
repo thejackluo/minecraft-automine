@@ -3,7 +3,7 @@ windowTitle := "Minecraft" ;
 autoMine := false
 autoBridge := false
 
-; Automining (alt + m) 
+; AutoMining (alt + m) 
 !m::
     autoMine := true
     Loop {
@@ -13,6 +13,22 @@ autoBridge := false
         } else {
             Click, Up
             Send {w up}
+            break
+        }
+        sleep 100 ;
+    }
+return
+
+; AutoBridging
+!b::
+    autoBridge := true
+    Loop {
+        if (autoBridge) {
+            Click, Right, Down
+            Send {+s down}
+        } else {
+            Click, Right, Up
+            Send {+s up}
             break
         }
         sleep 100 ;
