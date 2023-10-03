@@ -1,50 +1,29 @@
-; Declare a flag variable to control the state of the script
-autoMine := false
+autoMine := false ; Declare a flag variable to control the state of the script
+windowTitle := "Minecraft" ; Define the title of the window to monitor (this is a part of Minecraft's window title)
 
-; Define the title of the window to monitor (this is a part of Minecraft's window title)
-windowTitle := "Minecraft"
-
-; When F1 is pressed, start auto-mining
+; When Alt + Z is pressed, start automining 
 !z::
-    ; Set the flag to true
-    autoMine := true
+    autoMine := true ; Set the flag to true
     
     ; Start a loop for auto-mining
-    Loop
-    {
+    Loop {
         ; Check the flag inside the loop
-        if (!autoMine)
-            break
+        if (autoMine) {
+            Click("down")         ; Hold down left mouse button
+            Send("{w down}")         ; Hold 'W' to move forward
             
-        ; Check if the Minecraft window is active
-        if (WinActive("ahk_exe " . windowTitle))
-        {
-            ; Hold down left mouse button
+        } else {
             Click("down")
-            
-            ; Hold 'W' to move forward
             Send("{w down}")
+            break
         }
-        else
-        {
-            ; Release the left mouse button and 'W' key if Minecraft window is not active
-            Click("up")
-            Send("{w up}")
-        }
-        
-        ; Sleep for 100 milliseconds before the loop iterates again
-        Sleep(100)
+        Sleep(100) ; Sleep for 100 milliseconds before the loop iterates again
     }
 return
 
-; When F2 is pressed, stop auto-mining
+; When Alt + X is pressed, start automining 
 !x::
-    ; Release the left mouse button
-    Click("up")
-    
-    ; Release the 'W' key
-    Send("{w up}")
-    
-    ; Set the flag to false to stop the loop
-    autoMine := false
+    Click("up") ; Release the left mouse button
+    Send("{w up}") ; Release the 'W' key
+    autoMine := false ; Set the flag to false to stop the loop
 return
