@@ -76,4 +76,8 @@ return
     extendedAutoMine := false
 return
 
+Escape::
+    ExitApp
+Return
+
 ; Three bugs: First bug, Toggling doesn't work, second bug, bridging you can't combine sent keys do some research, third bug, the extended automine doesn't work
