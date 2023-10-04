@@ -31,10 +31,14 @@ return
     Loop {
         if (autoBridge) {
             Click, Right, Down
-            Send {+s down}
+            Send {LShift down}
+            sleep 10 ; Optional small delay
+            Send {s down}
         } else {
             Click, Right, Up
-            Send {+s up}
+            Send {s up}
+            sleep 10 ; Optional small delay
+            Send {LShift up}
             break
         }
         sleep 100 ;
@@ -68,8 +72,8 @@ return
 ; Cancel all actions
 !x::
     autoMine := false
-    extendedAutoMine := false
     autoBridge := false
+    extendedAutoMine := false
 return
 
 ; Three bugs: First bug, Toggling doesn't work, second bug, bridging you can't combine sent keys do some research, third bug, the extended automine doesn't work
