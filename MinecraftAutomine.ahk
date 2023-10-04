@@ -47,7 +47,7 @@ return
     hotKey := 4 ; UPDATE THIS
     Loop {
         if (extendedAutoMine) {
-            Send, !m
+            Send, !mw
             sleep 5000 ; UPDATE THIS
             Send, !m
             if (hotKey < 10) {
@@ -71,3 +71,5 @@ return
     extendedAutoMine := false
     autoBridge := false
 return
+
+; Three bugs: First bug, Toggling doesn't work, second bug, bridging you can't combine sent keys do some research, third bug, the extended automine doesn't work
