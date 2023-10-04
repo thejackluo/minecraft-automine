@@ -1,13 +1,17 @@
 ; This is a macro for minecraft related actions. Please read the guide carefully
+
+; general variable
 windowTitle := "Minecraft" ;
+hotKey := 4
+
+; function flags
 autoMine := false
 extendedAutoMine := false
 autoBridge := false
-hotKey := 4
 
 ; AutoMining (alt + m) 
 !m::
-    autoMine := true
+    autoMine := !autoMine
     Loop {
         if (autoMine) {
             Click, Down
@@ -23,7 +27,7 @@ return
 
 ; AutoBridging
 !b::
-    autoBridge := true
+    autoBridge := !autoBridge
     Loop {
         if (autoBridge) {
             Click, Right, Down
@@ -39,22 +43,21 @@ return
 
 ; ExtendedAutoMine
 !+m::
-    extendedAutoMine := true
+    extendedAutoMine := !extendedAutoMine
     hotKey := 4 ; UPDATE THIS
     Loop {
-        if (autoBridge) {
-            autoMine := true
+        if (extendedAutoMine) {
+            Send, !m
             sleep 5000 ; UPDATE THIS
-            automine: false
+            Send, !m
             if (hotKey < 10) {
                 hotKey = hotKey + 1
             } else {
                 break
             }
             Send, {%hotKey%} 
-            autoMine := true 
         } else {
-            autoMine := false
+            Send !x
             break
         }
          
