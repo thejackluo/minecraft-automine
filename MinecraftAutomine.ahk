@@ -1,7 +1,9 @@
 ; This is a macro for minecraft related actions. Please read the guide carefully
 windowTitle := "Minecraft" ;
 autoMine := false
+extendedAutoMine := false
 autoBridge := false
+hotKey := 4
 
 ; AutoMining (alt + m) 
 !m::
@@ -35,7 +37,34 @@ return
     }
 return
 
+; ExtendedAutoMine
+!+m::
+    extendedAutoMine := true
+    hotKey := 4 ; UPDATE THIS
+    Loop {
+        if (autoBridge) {
+            autoMine := true
+            sleep 5000 ; UPDATE THIS
+            automine: false
+            if (hotKey < 10) {
+                hotKey = hotKey + 1
+            } else {
+                break
+            }
+            Send, {%hotKey%} 
+            autoMine := true 
+        } else {
+            autoMine := false
+            break
+        }
+         
+        sleep 100 ; 
+    }
+return
+
 ; Cancel all actions
 !x::
     autoMine := false
+    extendedAutoMine := false
+    autoBridge := false
 return
