@@ -1,73 +1,55 @@
-; This is a macro for minecraft related actions. Please read the guide carefully
-
-; general variable
-windowTitle := "Minecraft" ;
+; General variables and flags
+windowTitle := "Minecraft"
 hotKey := 4
-
-; function flags
 autoMine := false
-extendedAutoMine := false
 autoBridge := false
+extendedAutoMine := false
 
-; AutoMining (alt + m) 
-!m::
-    autoMine := !autoMine
-    Loop {
-        if (autoMine) {
-            Click, Down
-            Send {w down}
-        } else {
-            Click, Up
-            Send {w up}
-            break
-        }
-        sleep 100 ;
+; Main loop for actions
+Loop {
+    ; AutoMine
+    if (autoMine) {
+        Click, Down
+        Send {w down}
+    } else {
+        Click, Up
+        Send {w up}
     }
-return
 
-; AutoBridging
-!b::
-    autoBridge := !autoBridge
-    Loop {
-        if (autoBridge) {
-            Click, Right, Down
-            Send {LShift down}
-            sleep 10 ; Optional small delay
-            Send {s down}
-        } else {
-            Click, Right, Up
-            Send {s up}
-            sleep 10 ; Optional small delay
-            Send {LShift up}
-            break
-        }
-        sleep 100 ;
+    ; AutoBridge
+    if (autoBridge) {
+        Click, Right, Down
+        Send {LShift down}
+        sleep 10 ; Optional small delay
+        Send {s down}
+    } else {
+        Click, Right, Up
+        Send {s up}
+        sleep 10 ; Optional small delay
+        Send {LShift up}
     }
-return
 
-; ExtendedAutoMine
-!+m::
-    extendedAutoMine := !extendedAutoMine
-    hotKey := 4 ; UPDATE THIS
-    Loop {
-        if (extendedAutoMine) {
-            Send, !mw
-            sleep 5000 ; UPDATE THIS
-            Send, !m
-            if (hotKey < 10) {
-                hotKey = hotKey + 1
-            } else {
-                break
-            }
-            Send, {%hotKey%} 
+    ; ExtendedAutoMine
+    if (extendedAutoMine) {
+        autoMine := true
+        sleep 5000 ; Sleep for 5 seconds
+        autoMine := false
+        if (hotKey < 10) {
+            hotKey := hotKey + 1
         } else {
-            Send !x
-            break
+            extendedAutoMine := false
         }
-         
-        sleep 100 ; 
+        Send, {%hotKey%}
     }
-return
+
+    sleep 100 ; General delay
+}
+
+; Hotkeys to toggle actions
+
+!m::autoMine := !autoMine
+!b::autoBridge := !autoBridge
+!+m::extendedAutoMine := !extendedAutoMine
 
 ; Cancel all actions
 !x::
@@ -75,9 +57,3 @@ return
     autoBridge := false
     extendedAutoMine := false
 return
-
-Escape::
-    ExitApp
-Return
-
-; Three bugs: First bug, Toggling doesn't work, second bug, bridging you can't combine sent keys do some research, third bug, the extended automine doesn't work
